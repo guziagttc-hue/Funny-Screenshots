@@ -4,12 +4,13 @@
  */
 
 import { useState, useEffect } from 'react';
-import Header from './components/Header';
+
 import Hero from './components/Hero';
 import Disclaimer from './components/Disclaimer';
 import Gallery from './components/Gallery';
 import Footer from './components/Footer';
 import LegalModal from './components/LegalModal';
+import { translations } from './i18n';
 
 import img1 from './assets/images/funny_screenshot_1_1784111105231.jpg';
 import img2 from './assets/images/funny_screenshot_2_1784111115687.jpg';
@@ -20,6 +21,7 @@ const images = [img1, img2, img3, img4];
 
 export default function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [language, setLanguage] = useState<'bn' | 'en'>('bn');
   const [legalModal, setLegalModal] = useState<'privacy' | 'terms' | 'contact' | null>(null);
 
   useEffect(() => {
@@ -41,18 +43,26 @@ export default function App() {
     }
   };
 
+  const toggleLanguage = () => {
+    setLanguage(language === 'bn' ? 'en' : 'bn');
+  };
+
+  const t = translations[language];
+
   return (
-    <div className="h-screen flex flex-col overflow-hidden bg-[#f4f7f6]">
-      <Header toggleTheme={toggleTheme} isDarkMode={isDarkMode} />
+    <div className="h-screen flex flex-col overflow-hidden bg-[#f4f7f6] dark:bg-[#1a1a1a] transition-colors duration-300">
+
       <main className="flex-1 overflow-y-auto">
-        <Hero />
-        <Disclaimer />
-        <Gallery images={images} />
+        <Hero language={language} t={t} />
+        <Disclaimer language={language} t={t} />
+        <Gallery images={images} language={language} t={t} />
       </main>
       <Footer 
         onPrivacyClick={() => setLegalModal('privacy')}
         onTermsClick={() => setLegalModal('terms')}
         onContactClick={() => setLegalModal('contact')}
+        language={language}
+        t={t}
       />
       <LegalModal type={legalModal} onClose={() => setLegalModal(null)} />
     </div>

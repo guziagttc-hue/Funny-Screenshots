@@ -39,9 +39,7 @@ export default function LegalModal({ type, onClose }: LegalModalProps) {
       body: (
         <div className="space-y-4">
           <p>If you have any questions or comments, please feel free to contact us:</p>
-          <p>By email: [your email address]<br />
-          By phone: [your phone number]<br />
-          By mail: [your mailing address]</p>
+          <p>By email: <a href="mailto:guziagttc@gmail.com" className="text-blue-600 underline">guziagttc@gmail.com</a></p>
           <p>We look forward to hearing from you!</p>
         </div>
       )

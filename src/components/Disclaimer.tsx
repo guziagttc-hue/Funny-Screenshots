@@ -20,18 +20,23 @@ const disclaimerOptions = [
   }
 ];
 
-export default function Disclaimer() {
+interface DisclaimerProps {
+  language: 'bn' | 'en';
+  t: any;
+}
+
+export default function Disclaimer({ language, t }: DisclaimerProps) {
   const [selected, setSelected] = useState(2); // Default to Teacher's Tone
 
   return (
-    <div className="bg-[#fff3cd] border border-[#ffeeba] mx-10 my-5 p-4 rounded-xl">
+    <div className="bg-[#fff3cd] dark:bg-[#4d3a00] border border-[#ffeeba] dark:border-[#7a6500] mx-10 my-5 p-4 rounded-xl transition-colors duration-300">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
-            <TriangleAlert className="text-[#856404]" size={24} />
+            <TriangleAlert className="text-[#856404] dark:text-[#f8d775]" size={24} />
             <select 
                 value={selected} 
                 onChange={(e) => setSelected(Number(e.target.value))}
-                className="bg-transparent font-semibold text-[#856404] text-[16px] border-none focus:ring-0 cursor-pointer"
+                className="bg-transparent font-semibold text-[#856404] dark:text-[#f8d775] text-[16px] border-none focus:ring-0 cursor-pointer"
             >
                 {disclaimerOptions.map((option, index) => (
                     <option key={index} value={index}>{option.title}</option>
@@ -39,7 +44,7 @@ export default function Disclaimer() {
             </select>
         </div>
       </div>
-      <p className="text-[#856404] text-[13px] opacity-80 mt-1">{disclaimerOptions[selected].text}</p>
+      <p className="text-[#856404] dark:text-[#f8d775] text-[13px] opacity-80 mt-1">{disclaimerOptions[selected].text}</p>
     </div>
   );
 }
